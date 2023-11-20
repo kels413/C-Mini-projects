@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#define GREEN   "\x1B[32m"
 typedef struct Task
 {
 	char	description[100];
@@ -78,18 +78,18 @@ int	main(void)
 	int i, j;
 	printf("How many Elements you want to store? ");
 	scanf("%d", &taskSize);
-	printStars();
+	// printStars();
 	getchar();
 	addItem(tasks, taskSize);
 	printf("\n");
 	// Print tasks in a tabular format
-	printf("%-80s %-80s %-80s\n", "Description", "Due Time", "Status");
+	printf(GREEN "%-80s %-80s %-80s\n", "Description", "Due Time", "Status");
 	for (i = 0; i < taskSize; i++)
 	{
 		// printFormattedDescription(tasks[i].description);
 		printf("%-80s%-80s%-80s\n", tasks[i].description, tasks[i].dueTime,
 			tasks[i].Taskstatus);
-            printStars();
+            // printStars();
 	}
 	return (0);
 }
