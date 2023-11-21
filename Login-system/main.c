@@ -1,87 +1,70 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-#define arrSize 50
-#define GREEN "\033[0;32m"
-#define RESET "\033[0m"
+#define arrSize 20
 
-typedef struct User
-{
-	char	firstName[arrSize];
-	char	lastName[arrSize];
-	char	gender[arrSize];
-	char	email[arrSize];
-	char	phoneNumber[arrSize];
-	char	password[arrSize];
+typedef struct User {
+    char *firstName;
+    char *lastName;
+    char *gender;
+    char *email;
+    char *phoneNumber;
+    char *password;
+} User_L;
 
-}			User_L;
-
-typedef struct Operations
-{
-	char	*opcode;
-	void	(*ptr)(char *, char *);
-}			Operations_t;
-
-/*function to get user Input*/
-char	*getUserInput(char *input)
-{
-	size_t	noBytes;
-	size_t	inputSize;
-
-	inputSize = 0;
-	noBytes = getline(&input, &inputSize, stdin);
-	if (noBytes == -1)
-	{
-		fprintf(stderr, "Eof Encounted\n");
-		exit(EXIT_FAILURE);
-	}
-	return (input);
+void getUserInputField(char **field, size_t *inputSize, const char *fieldName) {
+    printf("Enter %s: ", fieldName);
+    ssize_t noBytes = getline(field, inputSize, stdin);
+    if (noBytes == -1) {
+        fprintf(stderr, "\nEOF Encountered\n");
+        exit(EXIT_FAILURE);
+    }
 }
 
-/*function to print the welcome mesage*/
+void getUserInput(User_L *user) {
+    size_t inputSize = 0;
 
-void	welcome(void)
-{
-	const char	*text = "------------------------------------Welcome TO Command Line Login System----------------------------------------------\n";
-	int			screenWidth;
-	int			padding;
+    user->firstName = malloc(arrSize * sizeof(char));
+    user->lastName = malloc(arrSize * sizeof(char));
+    user->gender = malloc(arrSize * sizeof(char));
+    user->email = malloc(arrSize * sizeof(char));
+    user->phoneNumber = malloc(arrSize * sizeof(char));
+    user->password = malloc(arrSize * sizeof(char));
 
-	screenWidth = 200;
-	padding = (screenWidth - strlen(text)) / 2;
-	printf(GREEN "%*s%s" RESET, padding, "", text);
+    if (user->firstName == NULL || user->lastName == NULL ||
+        user->gender == NULL || user->email == NULL ||
+        user->phoneNumber == NULL || user->password == NULL) {
+        fprintf(stderr, "Memory Allocation Failed\n");
+        exit(EXIT_FAILURE);
+    }
+
+    getUserInputField(&user->firstName, &inputSize, "FirstName");
+    getUserInputField(&user->lastName, &inputSize, "LastName");
+    getUserInputField(&user->gender, &inputSize, "gender");
+    getUserInputField(&user->email, &inputSize, "email");
+    getUserInputField(&user->phoneNumber, &inputSize, "phoneNumber");
+    getUserInputField(&user->password, &inputSize, "password");
 }
 
-/*function to get the user Input*/
+int main(void) {
+    User_L user;
 
-/*Function to get the users choice*/
+    getUserInput(&user);
 
-int	choice(int userChoice)
-{
-	printf("Please choose Your operation");
-	printf("\n0.Signup\n1.Login\n2.Exit\n\n");
-	scanf("%d", &userChoice);
-	return (userChoice);
-}
+    printf("First Name: %s\n", user.firstName);
+    printf("Last Name: %s\n", user.lastName);
+    printf("Gender: %s\n", user.gender);
+    printf("Email: %s\n", user.email);
+    printf("Phone Number: %s\n", user.phoneNumber);
+    printf("Password: %s\n", user.password);
 
-int	main(void)
-{
-    system("clear");
-	welcome();
+    // Don't forget to free memory when you're done
+    free(user.firstName);
+    free(user.lastName);
+    free(user.gender);
+    free(user.email);
+    free(user.phoneNumber);
+    free(user.password);
 
-	int userChoice;
-	userChoice = choice(userChoice);
-
-	if (userChoice == 1)
-		printf("SignUp succesfully\n");
-	else
-		printf("wrong signup\n");
-	// char *input = NULL;
-	// size_t noBytes;
-
-	// input = getUserInput(input);
-
-	// printf("%s\n", input);
-
-	// free(input);
+    return 0;
 }
