@@ -91,7 +91,7 @@ int	main(void)
 		// printFormattedDescription(tasks[i].description);
 		printf("%-80s%-80s%-80s\n", tasks[i].description, tasks[i].dueTime,
 			tasks[i].Taskstatus);
-		system("clear");
+		// system("clear");
 		// printStars();
 	}
 	return (0);
