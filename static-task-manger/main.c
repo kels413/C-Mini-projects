@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define GREEN   "\x1B[32m"
+#define GREEN "\x1B[32m"
+#define RESET "\x1B[0m"
+
 typedef struct Task
 {
 	char	description[100];
@@ -52,7 +54,7 @@ void	addItem(Task *tasks, int size)
 
 void	printStars(void)
 {
-	int i, j,k;
+	int i, j, k;
 	for (i = 0; i < 95; i++)
 		printf("%c ", '*');
 	for (j = 0; j < 10; j++)
@@ -65,7 +67,6 @@ void	printStars(void)
 	{
 		/* code */
 		printf("%c ", '*');
-
 	}
 	printf("\n");
 }
@@ -83,13 +84,15 @@ int	main(void)
 	addItem(tasks, taskSize);
 	printf("\n");
 	// Print tasks in a tabular format
-	printf(GREEN "%-80s %-80s %-80s\n", "Description", "Due Time", "Status");
+	printf(GREEN "%-80s %-80s %-80s\n" RESET, "Description", "Due Time",
+		"Status");
 	for (i = 0; i < taskSize; i++)
 	{
 		// printFormattedDescription(tasks[i].description);
 		printf("%-80s%-80s%-80s\n", tasks[i].description, tasks[i].dueTime,
 			tasks[i].Taskstatus);
-            // printStars();
+		system("clear");
+		// printStars();
 	}
 	return (0);
 }
