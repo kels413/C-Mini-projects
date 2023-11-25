@@ -68,7 +68,7 @@ void	printStars(void)
 		/* code */
 		printf("%c ", '*');
 	}
-	printf("\n");
+	// printf("\n");
 }
 
 int	main(void)
