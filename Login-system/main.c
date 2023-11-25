@@ -51,6 +51,8 @@ int main(void) {
 
     getUserInput(&user);
 
+    
+
     printf("First Name: %s\n", user.firstName);
     printf("Last Name: %s\n", user.lastName);
     printf("Gender: %s\n", user.gender);
