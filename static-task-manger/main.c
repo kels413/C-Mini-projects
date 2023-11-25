@@ -82,7 +82,7 @@ int	main(void)
 	// printStars();
 	getchar();
 	addItem(tasks, taskSize);
-	printf("\n");
+	// printf("\n");
 	// Print tasks in a tabular format
 	printf(GREEN "%-80s %-80s %-80s\n" RESET, "Description", "Due Time",
 		"Status");
